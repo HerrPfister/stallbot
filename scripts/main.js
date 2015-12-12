@@ -8,19 +8,13 @@
 //   Occupy Stall Street
 
 var _ = require('lodash'),
-    request = require('request'),
+    request = require('request');
 
-    useMocks = _.includes(process.argv, function (arg) {
-        return arg.indexOf('mocks') || arg === '-m';
-    }),
-
-    URL = useMocks ? 'http://localhost:5000/stalls' : 'http://slalomstalls.herokuapp.com/stalls';
-
-function isStallOccupied(stall) {
+function isStallOccupied (stall) {
     return stall.occupied ? 'Occupied' : 'Free';
 }
 
-function getStallStatuses(floorNumber) {
+function getStallStatuses (floorNumber) {
     var mensRoom      = stalls[floorNumber].Men.spaces,
         stallStatuses = [];
 
@@ -33,7 +27,7 @@ function getStallStatuses(floorNumber) {
     return stallStatuses;
 }
 
-function getStatusesByFloor(stalls) {
+function getStatusesByFloor (stalls) {
     var floorStatus = [],
         floors = stalls.statuses;
 
@@ -46,9 +40,11 @@ function getStatusesByFloor(stalls) {
     return floorStatus.join('\n\n');
 }
 
+//'http://slalomstalls.herokuapp.com/stalls'
+
 module.exports = function (robot) {
     robot.respond(/stalls/i, function (res) {
-        request.get(URL)
+        request.get('http://localhost:5000/stalls')
             .on('response', function (stalls) {
                 var statuses = getStatusesByFloor(JSON.parse(stalls));
 
