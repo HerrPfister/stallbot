@@ -40,12 +40,14 @@ function getStatusesByFloor (stalls) {
     return floorStatus.join('\n\n');
 }
 
+//'http://slalomstalls.herokuapp.com/stalls'
+
 module.exports = function (robot) {
     robot.respond(/stalls/i, function (res) {
 
         res.send('Checking stalls ...');
 
-        request.get('http://slalomstalls.herokuapp.com/stalls')
+        request.get('http://localhost:5000/stalls')
             .on('response', function (stalls) {
                 var statuses = getStatusesByFloor(JSON.parse(stalls));
 
