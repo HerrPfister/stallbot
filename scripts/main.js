@@ -44,6 +44,9 @@ function getStatusesByFloor (stalls) {
 
 module.exports = function (robot) {
     robot.respond(/stalls/i, function (res) {
+
+        res.send('Checking stalls ...');
+
         request.get('http://localhost:5000/stalls')
             .on('response', function (stalls) {
                 var statuses = getStatusesByFloor(JSON.parse(stalls));
@@ -51,6 +54,8 @@ module.exports = function (robot) {
                 res.send(statuses);
             })
             .on('error', function (error) {
+                console.log(JSON.stringify(error));
+
                 res.send('Yo brah, something went wrong. Try again later.');
             });
         }
