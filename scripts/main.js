@@ -2,7 +2,7 @@
 //   A simple bot that will notify if any stalls in the bathrooms are occupied.
 //
 // Commands:
-//   hubot <stalls> - Returns the status of all the stalls on each floor.
+//   hubot stalls - Returns the status of all the stalls on each floor.
 //
 // Author:
 //   Occupy Stall Street
