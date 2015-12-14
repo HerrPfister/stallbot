@@ -7,14 +7,14 @@
 // Author:
 //   Occupy Stall Street
 
-var _ = require('lodash'),
+var _       = require('lodash'),
     request = require('request');
 
-function isStallOccupied (stall) {
+function isStallOccupied(stall) {
     return stall.occupied ? 'Occupied' : 'Free';
 }
 
-function getStallStatuses (floorNumber) {
+function getStallStatuses(floorNumber) {
     var mensRoom      = stalls[floorNumber].Men.spaces,
         stallStatuses = [];
 
@@ -27,9 +27,9 @@ function getStallStatuses (floorNumber) {
     return stallStatuses;
 }
 
-function getStatusesByFloor (stalls) {
+function getStatusesByFloor(stalls) {
     var floorStatus = [],
-        floors = stalls.statuses;
+        floors      = stalls.statuses;
 
     _.keys(floors, function (floor) {
         var statusMessage = getStallStatuses(floor);
@@ -41,26 +41,7 @@ function getStatusesByFloor (stalls) {
 }
 
 module.exports = function (robot) {
-    robot.hear(/stalls/i, function (res) {
-
-            console.log('Test 2');
-
-            res.send('Checking stalls ...');
-        }
-    );
-
-    robot.respond(/(stalls)/i, function (res) {
-
-            console.log('Test 2');
-
-            res.send('Checking stalls ...');
-        }
-    );
-
     robot.respond(/stalls/i, function (res) {
-
-        console.log('Test');
-
         res.send('Checking stalls ...');
 
         request.get('http://slalomstalls.herokuapp.com/stalls')
@@ -74,6 +55,5 @@ module.exports = function (robot) {
 
                 res.send('Yo brah, something went wrong. Try again later.');
             });
-        }
-    );
+    });
 };
