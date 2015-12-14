@@ -41,7 +41,25 @@ function getStatusesByFloor (stalls) {
 }
 
 module.exports = function (robot) {
+    robot.hear(/stalls/i, function (res) {
+
+            console.log('Test 2');
+
+            res.send('Checking stalls ...');
+        }
+    );
+
+    robot.respond(/(stalls)/i, function (res) {
+
+            console.log('Test 2');
+
+            res.send('Checking stalls ...');
+        }
+    );
+
     robot.respond(/stalls/i, function (res) {
+
+        console.log('Test');
 
         res.send('Checking stalls ...');
 
