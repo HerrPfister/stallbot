@@ -19,8 +19,9 @@ function getStallStatuses(floorNumber) {
         stallStatuses = [];
 
     _.keys(mensRoom, function (stall) {
+        console.log('stall: ', stall);
         var occupancy = isStallOccupied(mensRoom[stall]);
-
+        console.log('occupancy: ', occupancy);
         stallStatuses.push(stall + ': ' + occupancy);
     });
 
@@ -32,8 +33,9 @@ function getStatusesByFloor(stalls) {
         floors      = stalls.statuses;
 
     _.keys(floors, function (floor) {
+        console.log('floor: ', floor);
         var statusMessage = getStallStatuses(floor);
-
+        console.log('statusMessage: ', statusMessage);
         floorStatus.push(floor + '\n' + statusMessage);
     });
 
