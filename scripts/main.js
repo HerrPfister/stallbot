@@ -19,12 +19,12 @@ function getStallStatuses(floorNumber) {
         stallStatuses = [];
 
     _.keys(mensRoom, function (stall) {
-        var stallOccupied = isStallOccupied(mensRoom[stall]);
+        var occupancy = isStallOccupied(mensRoom[stall]);
 
-        stallStatuses.push(stall + ': ' + stallOccupied);
+        stallStatuses.push(stall + ': ' + occupancy);
     });
 
-    return stallStatuses;
+    return stallStatuses.join('\n');
 }
 
 function getStatusesByFloor(stalls) {
@@ -37,23 +37,25 @@ function getStatusesByFloor(stalls) {
         floorStatus.push(floor + '\n' + statusMessage);
     });
 
-    return floorStatus.join('\n\n');
+    return floorStatus.join('\n');
 }
 
 module.exports = function (robot) {
-    robot.respond(/stalls/i, function (res) {
-        res.send('Checking stalls ...');
+    robot.respond(/stalls/i, function (robo) {
+        robo.send('Checking stalls ...');
 
-        request.get('http://slalomstalls.herokuapp.com/stalls')
-            .on('response', function (stalls) {
-                var statuses = getStatusesByFloor(JSON.parse(stalls));
+        request.get('http://slalomstalls.herokuapp.com/stalls', function (err, res, stalls) {
+            var statuses;
 
-                res.send(statuses);
-            })
-            .on('error', function (error) {
+            if (err) {
                 console.log(JSON.stringify(error));
 
-                res.send('Yo brah, something went wrong. Try again later.');
-            });
+                robo.send('Holy cat\'s pajamas! Something went wrong. Try again later.');
+            } else {
+                statuses = getStatusesByFloor(JSON.parse(stalls));
+
+                robo.send(statuses);
+            }
+        });
     });
 };
