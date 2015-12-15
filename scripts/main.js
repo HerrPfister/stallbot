@@ -18,7 +18,7 @@ function getStallStatuses(floorNumber) {
     var mensRoom      = stalls[floorNumber].Men.spaces,
         stallStatuses = [];
 
-    _.keys(mensRoom, function (stall) {
+    _.forEach(_.keys(mensRoom), function (stall) {
         console.log('stall: ', stall);
         var occupancy = isStallOccupied(mensRoom[stall]);
         console.log('occupancy: ', occupancy);
@@ -36,7 +36,9 @@ function getStatusesByFloor(stalls) {
     console.log('stalls.statuses: ', stalls.statuses);
     console.log('stalls["statuses"]: ', stalls["statuses"]);
 
-    _.keys(floors, function (floor) {
+
+
+    _.forEach(_.keys(floors), function (floor) {
         console.log('floor: ', floor);
         var statusMessage = getStallStatuses(floor);
         console.log('statusMessage: ', statusMessage);
