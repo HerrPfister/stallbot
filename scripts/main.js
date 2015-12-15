@@ -33,6 +33,7 @@ function getStatusesByFloor(stalls) {
         floors      = stalls.statuses;
 
     console.log('stalls: ', stalls);
+    console.log('floors: ', floors);
 
     _.keys(floors, function (floor) {
         console.log('floor: ', floor);
