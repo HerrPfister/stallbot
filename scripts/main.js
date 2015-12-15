@@ -32,6 +32,8 @@ function getStatusesByFloor(stalls) {
     var floorStatus = [],
         floors      = stalls.statuses;
 
+    console.log('stalls: ', JSON.stringify(floors));
+
     _.keys(floors, function (floor) {
         console.log('floor: ', floor);
         var statusMessage = getStallStatuses(floor);
