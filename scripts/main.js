@@ -15,30 +15,28 @@ function isStallOccupied(stall) {
 }
 
 function getStallStatuses(floor) {
-    var mensRoom      = floor.Men.spaces,
+    var mensRoom        = floor.Men.spaces,
+        stalls        = _.keys(mensRoom),
         stallStatuses = [];
 
-    _.forEach(_.keys(mensRoom), function (stall) {
-        console.log('stall: ', stall);
-        var occupancy = isStallOccupied(mensRoom[stall]);
+    _.forEach(stalls, function (stallName) {
+        var occupancy = isStallOccupied(mensRoom[stallName]);
 
-        console.log('occupancy: ', occupancy);
-        stallStatuses.push(stall + ': ' + occupancy);
+        stallStatuses.push(stallName + ': ' + occupancy);
     });
 
     return stallStatuses.join('\n');
 }
 
 function getStatusesByFloor(stalls) {
-    var floorStatus = [],
-        floors      = stalls.statuses;
+    var floors       = stalls.statuses,
+        floorNumbers = _.keys(floors),
+        floorStatus  = [];
 
-    _.forEach(_.keys(floors), function (floorNumber) {
-        console.log('floorNumber: ', floorNumber);
+    _.forEach(floorNumbers, function (floorNumber) {
         var statusMessage = getStallStatuses(floors[floorNumber]);
 
-        console.log('statusMessage: ', statusMessage);
-        floorStatus.push(floor + '\n' + statusMessage);
+        floorStatus.push(floorNumber + '\n' + statusMessage);
     });
 
     return floorStatus.join('\n');
@@ -57,6 +55,8 @@ module.exports = function (robot) {
                 robo.send('Holy cat\'s pajamas! Something went wrong. Try again later.');
             } else {
                 statuses = getStatusesByFloor(JSON.parse(stalls));
+
+                robo.send(statuses)
             }
         });
     });
