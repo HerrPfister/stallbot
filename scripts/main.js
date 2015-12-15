@@ -52,6 +52,8 @@ module.exports = function (robot) {
 
                 robo.send('Holy cat\'s pajamas! Something went wrong. Try again later.');
             } else {
+                robo.send('success! ' + JSON.stringify(stalls));
+
                 statuses = getStatusesByFloor(JSON.parse(stalls));
 
                 robo.send(statuses);
