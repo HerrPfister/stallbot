@@ -33,9 +33,9 @@ function getStatusesByFloor(stalls) {
     var floorStatus = [],
         floors      = stalls.statuses;
 
-    _.forEach(_.keys(floors), function (floor) {
+    _.forEach(_.keys(floors), function (floorNumber) {
         console.log('floor: ', floor);
-        var statusMessage = getStallStatuses(stalls[floor]);
+        var statusMessage = getStallStatuses(floors[floorNumber]);
 
         console.log('statusMessage: ', statusMessage);
         floorStatus.push(floor + '\n' + statusMessage);
