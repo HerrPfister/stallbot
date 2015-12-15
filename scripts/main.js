@@ -59,10 +59,6 @@ module.exports = function (robot) {
                 robo.send('Holy cat\'s pajamas! Something went wrong. Try again later.');
             } else {
                 statuses = getStatusesByFloor(stalls);
-
-                robo.send('success! ' + JSON.stringify(stalls));
-
-                robo.send(statuses);
             }
         });
     });
