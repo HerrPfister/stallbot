@@ -34,7 +34,7 @@ function getStatusesByFloor(stalls) {
 
     console.log('stalls: ', stalls);
     console.log('stalls.statuses: ', stalls.statuses);
-    console.log('stallas["statuses"]: ', stalls["statuses"]);
+    console.log('stalls["statuses"]: ', stalls["statuses"]);
 
     _.keys(floors, function (floor) {
         console.log('floor: ', floor);
@@ -58,7 +58,7 @@ module.exports = function (robot) {
 
                 robo.send('Holy cat\'s pajamas! Something went wrong. Try again later.');
             } else {
-                statuses = getStatusesByFloor(stalls);
+                statuses = getStatusesByFloor(JSON.parse(stalls));
             }
         });
     });
