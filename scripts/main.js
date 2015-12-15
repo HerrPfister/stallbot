@@ -14,13 +14,14 @@ function isStallOccupied(stall) {
     return stall.occupied ? 'Occupied' : 'Free';
 }
 
-function getStallStatuses(floorNumber) {
-    var mensRoom      = stalls[floorNumber].Men.spaces,
+function getStallStatuses(floor) {
+    var mensRoom      = floor.Men.spaces,
         stallStatuses = [];
 
     _.forEach(_.keys(mensRoom), function (stall) {
         console.log('stall: ', stall);
         var occupancy = isStallOccupied(mensRoom[stall]);
+
         console.log('occupancy: ', occupancy);
         stallStatuses.push(stall + ': ' + occupancy);
     });
@@ -32,15 +33,10 @@ function getStatusesByFloor(stalls) {
     var floorStatus = [],
         floors      = stalls.statuses;
 
-    console.log('stalls: ', stalls);
-    console.log('stalls.statuses: ', stalls.statuses);
-    console.log('stalls["statuses"]: ', stalls["statuses"]);
-
-
-
     _.forEach(_.keys(floors), function (floor) {
         console.log('floor: ', floor);
         var statusMessage = getStallStatuses(floor);
+
         console.log('statusMessage: ', statusMessage);
         floorStatus.push(floor + '\n' + statusMessage);
     });
