@@ -44,7 +44,7 @@ module.exports = function (robot) {
     robot.respond(/stalls/i, function (robo) {
         robo.send('Checking stalls ...');
 
-        request('http://slalomstalls.herokuapp.com/stalls', function (err, res, stalls) {
+        request.get('http://slalomstalls.herokuapp.com/stalls', function (err, res, stalls) {
             var statuses;
 
             if (err) {
@@ -54,7 +54,7 @@ module.exports = function (robot) {
             } else {
                 robo.send('success! ' + JSON.stringify(stalls));
 
-                statuses = getStatusesByFloor(JSON.parse(stalls));
+                statuses = getStatusesByFloor(stalls);
 
                 robo.send(statuses);
             }
