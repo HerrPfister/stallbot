@@ -2,60 +2,62 @@
 //   A simple bot that will notify if any stalls in the bathrooms are occupied.
 //
 // Commands:
-//   hubot <stalls> - Returns the status of all the stalls on each floor.
+//   hubot stalls - Returns the status of all the stalls on each floor.
 //
 // Author:
 //   Occupy Stall Street
 
-var _ = require('lodash'),
+var _       = require('lodash'),
     request = require('request');
 
-function isStallOccupied (stall) {
+function isStallOccupied(stall) {
     return stall.occupied ? 'Occupied' : 'Free';
 }
 
-function getStallStatuses (floorNumber) {
-    var mensRoom      = stalls[floorNumber].Men.spaces,
-        stallStatuses = [];
+function getStallStatuses(floor) {
+    var mensRoomStalls = floor.Men.spaces,
+        stallNames     = _.keys(mensRoomStalls),
+        stallStatuses  = [];
 
-    _.keys(mensRoom, function (stall) {
-        var stallOccupied = isStallOccupied(mensRoom[stall]);
+    _.forEach(stallNames, function (stallName) {
+        var occupancy = isStallOccupied(mensRoomStalls[stallName]);
 
-        stallStatuses.push(stall + ': ' + stallOccupied);
+        stallStatuses.push(stallName + ': ' + occupancy);
     });
 
-    return stallStatuses;
+    return stallStatuses.join('\n');
 }
 
-function getStatusesByFloor (stalls) {
-    var floorStatus = [],
-        floors = stalls.statuses;
+function getStatusesByFloor(stalls) {
+    var floors       = stalls.statuses,
+        floorNumbers = _.keys(floors),
+        floorStatus  = [];
 
-    _.keys(floors, function (floor) {
-        var statusMessage = getStallStatuses(floor);
+    _.forEach(floorNumbers, function (floorNumber) {
+        var statusMessage = getStallStatuses(floors[floorNumber]);
 
-        floorStatus.push(floor + '\n' + statusMessage);
+        floorStatus.push(floorNumber + '\n' + statusMessage);
     });
 
-    return floorStatus.join('\n\n');
+    return floorStatus.join('\n');
 }
 
-module.exports = function (robot) {
-    robot.respond(/stalls/i, function (res) {
+module.exports = function (stallbot) {
+    stallbot.respond(/stalls/i, function (bot) {
+        bot.send('Checking stalls ...');
 
-        res.send('Checking stalls ...');
+        request.get('http://slalomstalls.herokuapp.com/stalls', function (err, res, stalls) {
+            var statuses;
 
-        request.get('http://slalomstalls.herokuapp.com/stalls')
-            .on('response', function (stalls) {
-                var statuses = getStatusesByFloor(JSON.parse(stalls));
-
-                res.send(statuses);
-            })
-            .on('error', function (error) {
+            if (err) {
                 console.log(JSON.stringify(error));
 
-                res.send('Yo brah, something went wrong. Try again later.');
-            });
-        }
-    );
+                bot.send('Holy cat\'s pajamas! Something went wrong. Try again later.');
+            } else {
+                statuses = getStatusesByFloor(JSON.parse(stalls));
+
+                bot.send(statuses)
+            }
+        });
+    });
 };
