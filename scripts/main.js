@@ -44,7 +44,7 @@ module.exports = function (robot) {
     robot.respond(/stalls/i, function (robo) {
         robo.send('Checking stalls ...');
 
-        request.get('http://slalomstalls.herokuapp.com/stalls', function (err, res, stalls) {
+        request('http://slalomstalls.herokuapp.com/stalls', function (err, res, stalls) {
             var statuses;
 
             if (err) {
