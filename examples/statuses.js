@@ -1,6 +1,6 @@
 'use strict';
 
-function createStallResponse(stall1Occupied, stall2Occupied) {
+function createStallResponse(stallOccupied) {
     return JSON.stringify({
         "statuses": {
             "51": {
@@ -8,7 +8,7 @@ function createStallResponse(stall1Occupied, stall2Occupied) {
                     "spaces": {
                         "stall 1": {
                             "active": true,
-                            "occupied": stall1Occupied
+                            "occupied": stallOccupied
                         }
                     }
                 }
@@ -18,6 +18,6 @@ function createStallResponse(stall1Occupied, stall2Occupied) {
 }
 
 module.exports = {
-    occupied: createStallResponse(true, true),
-    free: createStallResponse(false, false)
+    occupied: createStallResponse(true),
+    free: createStallResponse(false)
 };
