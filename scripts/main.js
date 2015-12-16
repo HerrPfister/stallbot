@@ -44,13 +44,13 @@ function getStatusesByFloor(stalls) {
 
 module.exports = function (stallbot) {
     stallbot.respond(/stalls/i, function (bot) {
-        bot.send('Checking stalls ...');
+        bot.send('Checking stalls...');
 
         request.get('http://slalomstalls.herokuapp.com/stalls', function (err, res, stalls) {
             var statuses;
 
             if (err) {
-                console.log(JSON.stringify(error));
+                console.log(err.message);
 
                 bot.send('Holy cat\'s pajamas! Something went wrong. Try again later.');
             } else {

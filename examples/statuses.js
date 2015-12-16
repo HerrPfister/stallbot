@@ -9,10 +9,6 @@ function createStallResponse(stall1Occupied, stall2Occupied) {
             "stall 1": {
               "active": true,
               "occupied": stall1Occupied
-            },
-            "stall 2": {
-              "active": true,
-              "occupied": stall2Occupied
             }
           }
         }
@@ -22,8 +18,6 @@ function createStallResponse(stall1Occupied, stall2Occupied) {
 }
 
 module.exports = {
-  allOccupied: createStallResponse(true, true),
-  stall1Occupied: createStallResponse(true, false),
-  stall2Occupied: createStallResponse(false, true),
-  allFree: createStallResponse(false, false)
+  occupied: createStallResponse(true, true),
+  free: createStallResponse(false, false)
 };
