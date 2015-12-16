@@ -1,8 +1,8 @@
 'use strict';
 
-var stallbot = require('../../../scripts/main'),
+var stallbot = require('../scripts/main'),
 
-    statusResponseGenerator = require('../../../examples/statuses.js'),
+    statusResponseGenerator = require('../examples/statuses.js'),
 
     fluki = require('fluki'),
     request = require('request'),
@@ -82,10 +82,12 @@ describe('stallbot', function () {
             stallbot(response)
         });
 
-        it('should generate the correct response message', function () {
+        it('should log the correct error message', function () {
             expect(console.log).to.have.callCount(1);
             expect(console.log).to.have.been.calledWith(randomString);
+        });
 
+        it('should generate the correct response message', function () {
             expect(bot.send).to.have.callCount(2);
             expect(bot.send).to.have.been.calledWith('Checking stalls...');
             expect(bot.send).to.have.been.calledWith('Holy cat\'s pajamas! Something went wrong. Try again later.');
