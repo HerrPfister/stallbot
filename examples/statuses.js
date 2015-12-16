@@ -1,6 +1,6 @@
 'use strict';
 
-function createStallResponse(stallOccupied) {
+function createStallResponse(isStallOccupied) {
     return JSON.stringify({
         "statuses": {
             "51": {
@@ -8,7 +8,7 @@ function createStallResponse(stallOccupied) {
                     "spaces": {
                         "stall 1": {
                             "active": true,
-                            "occupied": stallOccupied
+                            "occupied": isStallOccupied
                         }
                     }
                 }
