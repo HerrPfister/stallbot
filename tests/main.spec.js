@@ -48,7 +48,7 @@ describe('stallbot', function () {
             expect(bot.send).to.have.callCount(2);
 
             expect(bot.send).to.have.been.calledWith('Checking stalls...');
-            expect(bot.send).to.have.been.calledWith('51\nstall 1: Occupied');
+            expect(bot.send).to.have.been.calledWith('51\nstall 1: (maga)');
         });
     });
 
@@ -63,7 +63,7 @@ describe('stallbot', function () {
             expect(bot.send).to.have.callCount(2);
 
             expect(bot.send).to.have.been.calledWith('Checking stalls...');
-            expect(bot.send).to.have.been.calledWith('51\nstall 1: Free');
+            expect(bot.send).to.have.been.calledWith('51\nstall 1: (greencheck)');
         });
     });
 
