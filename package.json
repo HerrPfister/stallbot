@@ -1,6 +1,6 @@
 {
   "name": "stallbot",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A simple bot that will notify if any stalls in the bathrooms are occupied.",
   "main": "index.js",
   "scripts": {
