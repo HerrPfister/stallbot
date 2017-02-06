@@ -48,7 +48,7 @@ describe('stallbot', function () {
             expect(bot.send).to.have.callCount(2);
 
             expect(bot.send).to.have.been.calledWith('Checking stalls...');
-            expect(bot.send).to.have.been.calledWith('51\nstall 1: (maga)');
+            expect(bot.send).to.have.been.calledWith('51\nstall 1: (poo)');
         });
     });
 

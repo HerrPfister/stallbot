@@ -11,7 +11,7 @@ var _       = require('lodash'),
     request = require('request');
 
 function isStallOccupied(stall) {
-    return stall.occupied ? '(maga)' : '(greencheck)';
+    return stall.occupied ? '(poo)' : '(greencheck)';
 }
 
 function getStallStatuses(floor) {
